@@ -1,0 +1,77 @@
+# 数据集/大文件（奶茶图片数据集）
+data/
+dataset/
+*jpg
+*.zip
+*.rar
+*.7z
+
+# 模型权重/ checkpoint（.pth/.pt 大文件，不要上传）
+*.pth
+*.pt
+*.pkl
+checkpoints/
+weights/
+
+# Python 虚拟环境
+venv/
+env/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# PyTorch 缓存
+*.torch
+torch_extensions/
+
+#Flask特定过滤
+*.sqlite
+*.db
+flask_session/
+
+# IDE 配置文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 日志/临时文件
+logs/
+*.log
+tmp/
+temp/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Uploads
+uploads/*
+!uploads/.gitkeep
+
+# Results
+result.xlsx
+results/
+outputs/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Test
+.pytest_cache/
+.coverage
+
+# Temp
+tmp/
+temp/
+cache/
+*~
+
+.pth/

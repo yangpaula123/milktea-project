@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>奶茶品牌识别</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('/static/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            max-width: 600px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #28a745, #20c997);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        form {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        input[type="file"] {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            background: #f9f9f9;
+            width: 100%;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        input[type="file"]:hover {
+            border-color: #764ba2;
+            background: #f0f0f0;
+        }
+        button {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.6);
+        }
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(232, 245, 232, 0.8);
+            border: 1px solid rgba(195, 230, 203, 0.5);
+            border-radius: 10px;
+            animation: fadeIn 0.5s ease-in;
+        }
+        .error {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border: 1px solid #f5c6cb;
+        }
+        .result h3 {
+            color: #155724;
+            margin-top: 0;
+        }
+        .error h3 {
+            color: #721c24;
+        }
+        .result p {
+            margin: 10px 0;
+            color: #155724;
+        }
+        .error p {
+            color: #721c24;
+        }
+        .probs {
+            margin-top: 20px;
+        }
+        .probs h4 {
+            color: #155724;
+            margin-bottom: 15px;
+        }
+        .prob-bar {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+            background: #f8f9fa;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .prob-label {
+            width: 80px;
+            padding: 8px 12px;
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        .prob-fill {
+            height: 36px;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            transition: width 1s ease-in-out;
+            border-radius: 0 20px 20px 0;
+        }
+        .prob-value {
+            margin-left: 10px;
+            font-weight: bold;
+            color: #333;
+            min-width: 50px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍵 奶茶品牌识别系统</h1>
+        <p>上传奶茶照片，AI 将智能识别品牌（coco、heytea、mixue、naixue）</p>
+        
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required>
+            <br>
+            <button type="submit">🚀 开始识别</button>
+        </form>
+
+        {% if error %}
+        <div class="result error">
+            <h3>❌ 识别失败</h3>
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+
+        {% if result %}
+        <div class="result">
+            <h3>✅ 识别成功</h3>
+            <p><strong>文件名：</strong> {{ result.filename }}</p>
+            <p><strong>预测品牌：</strong> {{ result.label }}</p>
+            <p><strong>置信度：</strong> {{ result.score }}%</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
